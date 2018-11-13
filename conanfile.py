@@ -1,6 +1,7 @@
 import os
 import sys
 from conans import ConanFile, AutoToolsBuildEnvironment, VisualStudioBuildEnvironment, tools
+from conans.errors import ConanInvalidConfiguration
 
 
 class GdalConan(ConanFile):
@@ -20,6 +21,10 @@ class GdalConan(ConanFile):
     archive_name = "v%s.tar.gz" % version
     src_url = "http://github.com/OSGeo/gdal/archive/%s" % archive_name
     generators = "cmake"
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            raise ConanInvalidConfiguration("Recipe only supports Linux for now.")
 
     def source(self):
         tools.download(self.src_url, self.archive_name)
