@@ -4,9 +4,8 @@ from conans import ConanFile, CMake
 class GdalTestConan(ConanFile):
     """ GDAL Conan package test """
 
-    requires = "gdal/2.3.2@microdrones/stable"
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake", "virtualenv"
+    generators = "cmake", "cmake_find_package"
 
     def build(self):
         cmake = CMake(self)
@@ -14,7 +13,5 @@ class GdalTestConan(ConanFile):
         cmake.build()
 
     def test(self):
-        if self.settings.os == "Windows":
-            self.run("activate && %s %s" % (os.sep.join([".", "bin", "helloworld"]), "conan"))
-        else:
-            self.run(os.sep.join([".", "bin", "helloworld"]))
+        bin_path = os.path.join("bin", "helloword")
+        self.run(bin_path, run_environment=True)
