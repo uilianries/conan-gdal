@@ -15,7 +15,6 @@ class GdalConan(ConanFile):
     require = (
         "geos/3.7.0@novolog/stable"
     )
-    generators = "cmake"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
     _source_folder = os.path.join("gdal-%s" % version, "gdal")
