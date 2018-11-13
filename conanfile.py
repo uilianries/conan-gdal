@@ -83,12 +83,11 @@ class GdalConan(ConanFile):
                     "--without-sqlite3",
                     "--without-webp",
                     "--without-xerces",
-                    "--without-xml2"
+                    "--without-xml2",
+                    "--enable-static=%s" % ("no" if self.options.shared else "yes"),
+                    "--enable-shared=%s" % ("yes" if self.options.shared else "no"),
+                    "--with-pic=%s" % ("yes" if self.options.fPIC else "no")
                 ]
-            if self.options.shared:
-                args.extend(["--disable-static", "--enable-shared"])
-            else:
-                args.extend(["--disable-shared", "--enable-static"])
             self._autotools = AutoToolsBuildEnvironment(self)
             self._autotools.configure(args=args)
         return self._autotools

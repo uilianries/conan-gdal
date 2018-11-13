@@ -1,18 +1,8 @@
-project(helloworld)
+project(helloworld CXX)
 cmake_minimum_required(VERSION 2.8.12)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-find_package(gdal REQUIRED)
-
 add_executable(helloworld main.cpp)
-target_include_directories(helloworld
-        PRIVATE
-        ${CMAKE_CURRENT_BINARY_DIR}
-        ${gdal_INCLUDE_DIR}
-        )
-target_link_libraries(helloworld
-        PUBLIC
-        ${gdal_LIBRARY}
-        )
+target_link_libraries(helloworld PRIVATE ${CONAN_LIBS})
